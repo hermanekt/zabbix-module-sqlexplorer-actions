@@ -26,9 +26,13 @@ jobs:
       
     - name: Run distcheck
       run: zip release${{ env.NEXT_VERSION }}.zip actions/* public/* views/* helpers/html/* Module.php manifest.json
-         
-    - name: Upload Release
-      uses: ncipollo/release-action@v1
+    
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
       with:
-       artifacts: "release${{ env.NEXT_VERSION }}.zip"
-       token: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: public
+        asset_name: mything
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "This is my release text"
