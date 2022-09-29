@@ -13,7 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
+    - name: docker init
+      run: docker build -t noderollup:latest ./
+
     - name: test
       run: docker run -t noderollup:latest -v $(pwd):/app -w /app pwsh -Command 'npm install'
       
