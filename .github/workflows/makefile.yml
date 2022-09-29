@@ -32,7 +32,7 @@ jobs:
       run: cp -r actions/ public/ views/ helpers/ Module.php manifest.json ${{ github.event.repository.name }}
  
     - name: Build zip release file
-      run: zip release.zip ${{ github.event.repository.name }}
+      run: zip -r release.zip ${{ github.event.repository.name }}
     
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
