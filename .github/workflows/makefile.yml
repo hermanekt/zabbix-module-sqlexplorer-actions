@@ -24,7 +24,6 @@ jobs:
     - name: Build JS
       run: docker run --rm -t --user `id -u`:`id -g` -v $(pwd):/app -w /app noderollup:latest rollup app.js -f iife -o ./public/app.min.js -p @rollup/plugin-node-resolve --compact
       
- 
     - name: Create module directory
       run: mkdir ${{ github.event.repository.name }}
 
