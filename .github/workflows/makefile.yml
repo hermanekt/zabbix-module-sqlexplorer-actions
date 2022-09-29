@@ -25,14 +25,14 @@ jobs:
       run: docker run --rm -t --user `id -u`:`id -g` -v $(pwd):/app -w /app noderollup:latest rollup app.js -f iife -o ./public/app.min.js -p @rollup/plugin-node-resolve --compact
       
     - name: Run distcheck
-      run: zip release${{ env.NEXT_VERSION }}.zip actions/* public/* views/* helpers/html/* Module.php manifest.json
+      run: zip release.zip actions/* public/* views/* helpers/html/* Module.php manifest.json
     
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: public
-        asset_name: mything
+        file: release.zip
+        asset_name: ${{ github.ref }}
         tag: ${{ github.ref }}
         overwrite: true
         body: "This is my release text"
