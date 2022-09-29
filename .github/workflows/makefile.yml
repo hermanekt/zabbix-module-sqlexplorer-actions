@@ -15,16 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: docker init
+    - name: Docker init
       run: docker build -t noderollup:latest ./
 
-    - name: prepare
+    - name: Prepare docker image
       run: docker run -t noderollup:latest -v $(pwd):/app -w /app pwsh -Command 'npm install'
            
     - name: Build JS
       run: docker run --rm -t --user `id -u`:`id -g` -v $(pwd):/app -w /app noderollup:latest rollup app.js -f iife -o ./public/app.min.js -p @rollup/plugin-node-resolve --compact
       
-    - name: Run distcheck
+    - name: Build zip release file
       run: zip release.zip actions/* public/* views/* helpers/html/* Module.php manifest.json
     
     - name: Upload binaries to release
@@ -32,7 +32,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: release.zip
-        asset_name: release.zip
+        asset_name: release-${{ github.ref }}.zip
         tag: ${{ github.ref }}
         overwrite: true
         body: "This is my release text"
