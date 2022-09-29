@@ -18,7 +18,7 @@ jobs:
       run: docker run --rm -it -v $(shell pwd):/app -w /app $(DOCKER_IMAGE) npm install
       
     - name: Build JS
-      run: docker run --rm -it --user `id -u`:`id -g` -v $(shell pwd):/app -w /app $noderollup:latest rollup app.js -f iife -o ./public/app.min.js -p @rollup/plugin-node-resolve --compact
+      run: docker run --rm -it --user `id -u`:`id -g` -v $(shell pwd):/app -w /app noderollup:latest rollup app.js -f iife -o ./public/app.min.js -p @rollup/plugin-node-resolve --compact
       
     - name: docker init
       run: docker build -t noderollup:latest ./
