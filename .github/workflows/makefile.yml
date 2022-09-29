@@ -25,15 +25,10 @@ jobs:
       
     - name: Run distcheck
       run: zip release${{ env.NEXT_VERSION }}.zip actions/* public/* views/* helpers/html/* Module.php manifest.json
-    
-    - name: Dev-Build
-      on:
-        create:
-          tags:
-            - v*
          
     - name: Upload Release
       uses: ncipollo/release-action@v1
       with:
        artifacts: "release${{ env.NEXT_VERSION }}.zip"
        token: ${{ secrets.GITHUB_TOKEN }}
+       fetch-depth: 0
