@@ -13,9 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
+    
     - name: test
-      run: docker --version
+      run: docker run -t noderollup:latest -v $(pwd):/app -w /app pwsh -Command 'npm install'
       
     - name: prepare
       run: docker run --rm -it -v $(pwd):/app -w /app noderollup:latest npm install
